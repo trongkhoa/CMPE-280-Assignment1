@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+</head>
+<body>
+<form>
+<input type="radio" id="searchOptions" name="searchOptions" value="bookList" checked> Book List</input>
+<input type="radio" id="searchOptions" name="searchOptions" value="scientists"> 100 Famous Scientists</input>
+</form>
+<p>Enter your search</p>
+<div>
+<input type="text" id="searchBox" oninput="autocompleteFunction()" size="100"></input>
+<input type="button" id="searchBtn" value="Search" onclick="alert('Searching')"></input>
+</div>
+<div id="autoComplete"> </div>
+<p id="debug"> </p>
+<script>
+
+var bookList=[
+			"Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython",
+			"Hadoop: The Definitive Guide",
+			"Predictive Analytics: The Power to Predict Who Will Click, Buy, Lie, or Die",
+			"Learning Spark: Lightning-Fast Big Data Analysis",
+			"Discovering Statistics Using R",
+			"Big Data, Big Analytics: Emerging Business Intelligence and Analytic Trends for Today's Businesses",
+			"Big Data: A Revolution That Will Transform How We Live, Work, and Think",
+			"Data Science for Business: What you need to know about data mining and data-analytic thinking",
+			"Big Data Now: 2012 Edition",
+			"Hadoop Explained",
+			"Big Data: Using SMART Big Data, Analytics and Metrics To Make Better Decisions and Improve Performance",
+			"Big Data For Dummies",
+			"Big Data, Analytics, and the Future of Marketing & Sales",
+			"Big Data: Principles and best practices of scalable realtime data systems",
+			"The Culture of Big Data",
+			"Real-Time Big Data Analytics: Emerging Architecture",
+			"Getting Started Guide: Analyzing Big Data with AWS",
+			"Data Analytics Made Accessible",
+			"Planning for Big Data",
+			"Data Smart: Using Data Science to Transform Information into Insight",
+			"Big Data Now: Current Perspectives from O'Reilly Radar",
+			"Big Data at Work: Dispelling the Myths, Uncovering the Opportunities",
+			"The Big Data Revolution",
+			"Data Jujitsu: The Art of Turning Data into Product",
+			"Big Data: Understanding How Data Powers Big Business",
+			"The Human Face of Big Data",
+			"The Signal and the Noise: Why So Many Predictions Fail--but Some Don't",
+			"Doing Data Science: Straight Talk from the Frontline",
+			"Big Data Marketing: Engage Your Customers More Effectively and Drive Value",
+			"Big Data and Hadoop",
+			"Taming The Big Data Tidal Wave: Finding Opportunities in Huge Data Streams with Advanced Analytics",
+			"Disruptive Possibilities: How Big Data Changes Everything",
+			"Thinking, Fast and Slow",
+			"Big Data Made Easy: A Working Guide to the Complete Hadoop Toolset",
+			"Getting a Big Data Job For Dummies",
+			"Big Data, Big Analytics: Emerging Business Intelligence and Analytic Trends for Today's Businesses",
+			"Big Data Demystified: How Big Data Is Changing The Way We Live, Love And Learn",
+			"AWS Data Pipeline Developer Guide",
+			"Real-Time Analytics: Techniques to Analyze and Visualize Streaming Data",
+			"Smart Cities: Big Data, Civic Hackers, and the Quest for a New Utopia",
+			"The Big Data-Driven Business: How to Use Big Data to Win Customers, Beat Competitors, and Boost Profits",
+			"Principles of Big Data: Preparing, Sharing, and Analyzing Complex Information",
+			"Hadoop in Practice",
+			"Head First Data Analysis: A learner's guide to big numbers, statistics, and good decisions",
+			"Big Data, Data Mining, and Machine Learning: Value Creation for Business Leaders and Practitioners",
+			"Big Data Revolution: What farmers, doctors and insurance agents teach us about discovering big data patterns",
+			"Learning With Big Data \(Kindle Single\)",
+			"Big Data, Little Data, No Data: Scholarship in the Networked World",
+			"Big Data Analytics: Disruptive Technologies for Changing the Game",
+			"Uncharted: Big Data as a Lens on Human Culture",
+			"Oracle Big Data Handbook (Oracle Press)",
+			"Hadoop: The Definitive Guide",
+			"Cognitive Computing and Big Data Analytics",
+			"Big Data Analytics: A Practical Guide for Managers",
+			"Too Big to Ignore: The Business Case for Big Data",
+			"Big Data Analytics: Turning Big Data into Big Money",
+			"Microsoft Big Data Solutions",
+			"Big Data: A Business and Legal Guide",
+			"Big Data Analytics with R and Hadoop",
+			"Data Just Right: Introduction to Large-Scale Data & Analytics \(Addison-Wesley Data & Analytics Series\)",
+			"Big Data: Algorithms, Analytics, and Applications",
+			"Data-Driven Modeling & Scientific Computation: Methods for Complex Systems & Big Data",
+			"Digital Humanitarians: How Big Data Is Changing the Face of Humanitarian Response",
+			"Think Bigger: Developing a Successful Big Data Strategy for Your Business",
+			"R for Everyone: Advanced Analytics and Graphics",
+			"Data Divination: Big Data Strategies",
+			"Machine Learning: The Art and Science of Algorithms that Make Sense of Data",
+			"Big Data Governance: An Emerging Imperative",
+			"Big Data Baseball: Math, Miracles, and the End of a 20-Year Losing Streak",
+			"To the Cloud: Big Data in a Turbulent World",
+			"Digital Exhaust: What Everyone Should Know About Big Data, Digitization and Digitally Driven Innovation",
+			"The Visual Organization: Data Visualization, Big Data, and the Quest for Better Decisions",
+			"Big Data and Health Analytics",
+			"Naked Statistics: Stripping the Dread from the Data",
+			"Successful Business Intelligence: Unlock the Value of BI & Big Data",
+			"Predictive Analytics For Dummies",
+			"Bold: How to Go Big, Create Wealth and Impact the World",
+			"Data Architecture: A Primer for the Data Scientist: Big Data, Data Warehouse and Data Vault",
+			"BIG DATA ANALYTICS through SAS",
+			"Mining the Social Web: Data Mining Facebook, Twitter, LinkedIn, Google+, GitHub, and More"];
+var scientists = [
+			"Isaac Newton",
+			"Albert Einstein",
+			"Neils Bohr",
+			"Charles Darwin",
+			"Louis Pasteur",
+			"Sigmund Freud",
+			"Galileo Galilei",
+			"Antoine Laurent Lavoisier",
+			"Johannes Kepler",
+			"Nicolaus Copernicus",
+			"Michael Faraday",
+			"James Clerk Maxwell",
+			"Claude Bernard",
+			"Franz Boas",
+			"Werner Heisenberg",
+			"Linus Pauling",
+			"Rudolf Virchow",
+			"Erwin Schrodinger",
+			"Ernest Rutherford",
+			"Paul Dirac",
+			"Andreas Vesalius",
+			"Tycho Brahe",
+			"Comte de Buffon",
+			"Ludwig Boltzmann",
+			"Max Planck",
+			"Marie Curie",
+			"William Herschel",
+			"Charles Lyell",
+			"Pierre Simon de Laplace",
+			"Edwin Hubble",
+			"Joseph J. Thomson",
+			"Max Born",
+			"Francis Crick",
+			"Enrico Fermi",
+			"Leonard Euler",
+			"Justus Liebig",
+			"Arthur Eddington",
+			"William Harvey",
+			"Marcello Malpighi",
+			"Christiaan Huygens",
+			"Carl Gauss \(Karl Friedrich Gauss\)",
+			"Albrecht von Haller",
+			"August Kekule",
+			"Robert Koch",
+			"Murray Gell-Mann",
+			"Emil Fischer",
+			"Dmitri Mendeleev",
+			"Sheldon Glashow",
+			"James Watson",
+			"John Bardeen",
+			"John von Neumann",
+			"Richard Feynman",
+			"Alfred Wegener",
+			"Stephen Hawking",
+			"Anton van Leeuwenhoek",
+			"Max von Laue",
+			"Gustav Kirchhoff",
+			"Hans Bethe",
+			"Euclid",
+			"Gregor Mendel",
+			"Heike Kamerlingh Onnes",
+			"Thomas Hunt Morgan",
+			"Hermann von Helmholtz",
+			"Paul Ehrlich",
+			"Ernst Mayr",
+			"Charles Sherrington",
+			"Theodosius Dobzhansky",
+			"Max Delbruck",
+			"Jean Baptiste Lamarck",
+			"William Bayliss",
+			"Noam Chomsky",
+			"Frederick Sanger",
+			"Lucretius",
+			"John Dalton",
+			"Louis Victor de Broglie",
+			"Carl Linnaeus",
+			"Jean Piaget",
+			"George Gaylord Simpson",
+			"Claude Levi-Strauss",
+			"Lynn Margulis",
+			"Karl Landsteiner",
+			"Konrad Lorenz",
+			"Edward O. Wilson",
+			"Frederick Gowland Hopkins",
+			"Gertrude Belle Elion",
+			"Hans Selye",
+			"J. Robert Oppenheimer",
+			"Edward Teller",
+			"Willard Libby",
+			"Ernst Haeckel",
+			"Jonas Salk",
+			"Emil Kraepelin",
+			"Trofim Lysenko",
+			"Francis Galton",
+			"Alfred Binet",
+			"Alfred Kinsey",
+			"Alexander Fleming",
+			"B. F. Skinner",
+			"Wilhelm Wundt",
+			"Archimedes"];
+function getSearchTextValue(){
+	var searchBox = document.getElementById("searchBox"); 
+	return searchBox.value;
+}
+function getOptionsValue(){
+	var options= document.forms[0];
+	for(i = 0; i < options.length; i++){
+		if (options[i].checked){
+			return options[i].value;
+		}
+	}
+	
+}				
+function autocompleteFunction(){
+	var searchBox = document.getElementById("searchBox"); 
+	if (searchBox.value){
+		createDropdown();
+	}else{
+		removeDropdown();
+	}
+	
+}
+function removeDropdown(){
+	var getSelectE = document.getElementById("matchingFound");
+	var autoComplete = document.getElementById("autoComplete");
+	if(getSelectE){
+		autoComplete.removeChild(getSelectE);
+	}
+}
+function createDropdown(){
+	
+	removeDropdown();
+	var selectE = document.createElement("select");
+	selectE.id = "matchingFound";
+	selectE.size = 5;
+	selectE.setAttribute("onclick", "selectAutoCompleteText()");
+	var data;
+	if (getOptionsValue() == "bookList"){
+		data = bookList;
+		}else{
+		data = scientists;
+	}
+	var regExp = new RegExp(getSearchTextValue(),"i"); //case insensitive
+	for (var i=0; i < data.length; i++){
+		var optE = document.createElement("option");
+		
+		if(regExp.test(data[i])){
+			var textN = document.createTextNode(data[i]);
+			optE.appendChild(textN);
+			selectE.appendChild(optE);
+		}
+		
+	}
+	if(selectE.firstChild.value){
+			autoComplete.appendChild(selectE);
+	
+	}
+	
+	
+
+}
+
+function selectAutoCompleteText(){
+	var match = document.getElementById("matchingFound");
+	var selectedOpt = match.options[match.selectedIndex].text;
+	var searchBox = document.getElementById("searchBox");
+	searchBox.value = selectedOpt;
+	removeDropdown();
+	
+}
+</script>
+</body>
+</html>
